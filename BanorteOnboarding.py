@@ -2,8 +2,6 @@ from tkinter import *
 from tkinter import messagebox, filedialog, ttk
 from PIL import Image, ImageTk
 import webbrowser  # Importar el módulo webbrowser
-
-#pip install pywebview
 import webview
 
 import requests
@@ -13,6 +11,7 @@ from tkinter import scrolledtext
 import cv2
 
 class App(Tk):
+    # __init__: Inicializa la aplicación principal, define la geometría de la ventana, la apariencia, y carga imágenes.
     def __init__(self):
         Tk.__init__(self)
         self.config(bg="#FF0000", cursor="heart")
@@ -74,6 +73,7 @@ class App(Tk):
         self.estado_conversacion = "inicio"
         self.tema_actual = ""
     
+    # show_priv: Muestra la pantalla de privacidad al usuario, destruyendo widgets anteriores.
     def show_priv(self):
         # Limpiar la pantalla actual
         for widget in self.winfo_children():
@@ -107,6 +107,7 @@ class App(Tk):
         Button(self, text="Siguiente", font=("Arial", 14), bg="#FFFFFF", fg="#FF0000", width=20,
                command=self.login).place(x=100, y=480)
 
+    # obtener_respuesta(texto): Procesa la respuesta del usuario en el chatbot. Recibe el texto del usuario como parámetro y decide la siguiente acción.
     def obtener_respuesta(self, texto):
         texto = texto.lower()  # Convertir todo el texto a minúsculas
 
@@ -158,7 +159,7 @@ class App(Tk):
 
         return "Lo siento, no tengo información sobre ese tema. Puedes preguntarme sobre ahorro, inversión, presupuesto, deuda, y más."
 
-
+    # iniciar_test_personalidad: Inicia el test de personalidad financiera, preparando las preguntas y configuraciones necesarias.
     def iniciar_test_personalidad(self):
         # Preguntas del test de personalidad
         self.preguntas_personalidad = [
@@ -201,6 +202,7 @@ class App(Tk):
         self.estado_conversacion = "test_personalidad"
         return self.preguntas_totales[self.pregunta_actual]
 
+    # siguiente_pregunta(respuesta): Avanza a la siguiente pregunta del test de personalidad, guardando las respuestas.
     def siguiente_pregunta(self, respuesta):
         # Si la pregunta es de personalización, la guarda en el diccionario
         if self.pregunta_actual >= len(self.preguntas_personalidad):
@@ -219,6 +221,7 @@ class App(Tk):
             # Una vez terminadas las preguntas, clasificar la personalidad
             return self.clasificar_personalidad()
 
+    # clasificar_personalidad: Clasifica al usuario en un tipo de personalidad financiera basándose en sus respuestas.
     def clasificar_personalidad(self):
         num_tipos = 5
         preguntas_por_tipo = len(self.respuestas_personalidad) // num_tipos  # Debería ser 4, ya que hay 20 preguntas y 5 tipos
@@ -247,6 +250,8 @@ class App(Tk):
         self.usuarios[self.username].extend([self.respuestas_personalizacion])
 
         return f"Tu tipo de personalidad es: {tipos_personalidad[indice_personalidad]}. ¡Gracias por completar el test!"
+    
+    # show_chatbot: Muestra el chatbot en la pantalla, permitiendo al usuario interactuar con él.
     def show_chatbot(self):
         self.clear_main_frame()
 
@@ -295,6 +300,7 @@ class App(Tk):
 
         self.update_nav_button("chatbot")
 
+    # get_response: Obtiene y muestra la respuesta del chatbot basado en la entrada del usuario.
     def get_response(self):
         user_input = self.user_input.get()
         if user_input:
@@ -309,6 +315,7 @@ class App(Tk):
             self.chat_display.config(state=DISABLED)
             self.user_input.delete(0, END)
 
+    # crear_cuenta_paso1: Muestra la primera pantalla para crear una cuenta nueva, con campos para nombre, apellido, y otros datos.
     def crear_cuenta_paso1(self):
         # Limpiar la ventana
         for widget in self.winfo_children():
@@ -339,6 +346,7 @@ class App(Tk):
         Button(self, text="Atras", font=("Arial", 14), bg="#FFFFFF", fg="#FF0000", width=10,
                command=self.login).place(x=250, y=540)
 
+    # crear_cuenta_paso2: Muestra la segunda pantalla para crear una cuenta nueva, con campos para usuario y contraseña.
     def crear_cuenta_paso2(self):
         # Limpiar la ventana
         for widget in self.winfo_children():
@@ -367,6 +375,8 @@ class App(Tk):
                command=self.crear_cuenta_paso1).place(x=250, y=540)
         
         #verificar los datos ingresados en la creacion de cuenta
+    
+    # verificar_datos: Verifica los datos ingresados para la creación de cuenta, asegurándose de que las contraseñas coincidan.
     def verificar_datos(self):
         #que el valor ingresado no sea nulo o essté en blanco
         prueba_usuario = self.usuario_entry.get().strip()
@@ -387,6 +397,7 @@ class App(Tk):
                 messagebox.showinfo("Error","Contraseñas no coinciden")
                 self.crear_cuenta_paso2
 
+    # pantalla_principal: Muestra la pantalla principal de la aplicación, con módulos y barra de navegación.
     def pantalla_principal(self):
         # Limpiar la ventana y mostrar pantalla principal
         for widget in self.winfo_children():
@@ -404,7 +415,7 @@ class App(Tk):
         self.show_home()
 
     
-    
+    # show_module_detail(titulo, descripcion): Muestra el detalle de un módulo educativo, usando el título y la descripción proporcionados.
     def show_module_detail(self, titulo, descripcion):
         self.clear_main_frame()
 
@@ -415,6 +426,7 @@ class App(Tk):
 
         self.update_nav_button("home")
 
+    # complete_module(module_number): Marca un módulo como completado y actualiza el progreso del usuario.
     def complete_module(self, module_number):
         # Simula la finalización del módulo y actualiza el progreso
         self.progreso += 1
@@ -437,11 +449,12 @@ class App(Tk):
         ]
         self.show_module_detail(modulos[module_number-1], descripciones[module_number-1])
 
-
+    # clear_main_frame: Elimina los widgets del frame principal de la pantalla.
     def clear_main_frame(self):
         for widget in self.main_frame.winfo_children():
             widget.destroy()
 
+    # show_media: Muestra la pantalla de selección de videos educativos disponibles.
     def show_media(self):
         self.clear_main_frame()
 
@@ -460,21 +473,19 @@ class App(Tk):
         Button(self.selection_frame, text="Plan financiero a largo plazo", font=("Arial", 14), bg=self.colors["primary"], fg=self.colors["white"], command=self.play_video2).pack(pady=10)
         Button(self.selection_frame, text="Tarjeta de débito o crédito", font=("Arial", 14), bg=self.colors["primary"], fg=self.colors["white"], command=self.play_video3).pack(pady=10)
 
-
+    # play_video1, play_video2, play_video3: Abren una ventana de visualización para un video de YouTube específico.
     def play_video1(self):
          # URL of the YouTube video with the specific video ID
         video_url = 'https://www.youtube.com/watch?v=1MEn0n9Hd-w'
         # Open a webview window that will display the YouTube video
         webview.create_window('YouTube Video', url=video_url, width=800, height=600)
         webview.start(gui='qt')
-
     def play_video2(self):
         # URL of the YouTube video with the specific video ID
         video_url = 'https://www.youtube.com/watch?v=1CJE2X7Tmxo'
         # Open a webview window that will display the YouTube video
         webview.create_window('YouTube Video', url=video_url, width=800, height=600)
         webview.start(gui='qt')
-
     def play_video3(self):
         # URL of the YouTube video with the specific video ID
         video_url = 'https://www.youtube.com/watch?v=z3Ha78V9ZnQ'
@@ -482,6 +493,7 @@ class App(Tk):
         webview.create_window('YouTube Video', url=video_url, width=800, height=600)
         webview.start(gui='qt')
 
+    # play_video(video_path): Reproduce un video local y cambia al frame de reproducción.
     def play_video(self, video_path):
         """ Reproducir un video y cambiar al frame de video. """
         self.switch_to_video_frame()  # Cambiar al frame de video
@@ -499,6 +511,7 @@ class App(Tk):
         self.current_video = video_path  # Guardar el video actual
         self.update_video_frame()
 
+    # update_video_frame: Actualiza los frames del video en reproducción.
     def update_video_frame(self):
         """ Actualizar los frames del video que se está reproduciendo. """
         if self.video_running and self.cap.isOpened() and not self.stop_update:
@@ -517,6 +530,7 @@ class App(Tk):
                 self.cap.release()
                 self.video_running = False
 
+    # toggle_like, toggle_share, toggle_save: Alternan entre los estados de "me gusta", "compartir" o "guardar" en el video.
     def toggle_like(self):
         """ Alternar entre el estado de corazón vacío o lleno (like o no like). """
         if self.liked:
@@ -525,7 +539,6 @@ class App(Tk):
         else:
             self.like_button.config(image=self.heart_full)  # Cambiar a corazón lleno
             self.liked = True
-
     def toggle_share(self):
         """ Alternar entre el estado de compartir vacío o lleno (share o no share). """
         if self.shared:
@@ -534,7 +547,6 @@ class App(Tk):
         else:
             self.share_button.config(image=self.share_full)  # Cambiar a compartir lleno
             self.shared = True
-
     def toggle_save(self):
         """ Alternar entre el estado de guardar vacío o lleno (save o no save). """
         if self.saved:
@@ -543,18 +555,21 @@ class App(Tk):
         else:
             self.save_button.config(image=self.save_full)  # Cambiar a guardar lleno
             self.saved = True
-
+    
+    # switch_to_video_frame: Cambia al frame de reproducción de video desde el menú de selección.
     def switch_to_video_frame(self):
         """ Cambiar de la vista de selección al frame de video. """
         self.selection_frame.pack_forget()  # Ocultar el menú de selección
         self.video_frame.pack(fill="both", expand=True)  # Mostrar la vista de video
 
+    # back_to_menu: Regresa al menú de selección de videos, deteniendo la reproducción actual.
     def back_to_menu(self):
         """ Regresar al menú de selección de video. """
         self.stop_video()  # Detener el video antes de regresar
         self.video_frame.pack_forget()  # Ocultar el frame de video
         self.selection_frame.pack(fill="both", expand=True)  # Mostrar el menú de selección
 
+    # stop_video: Detiene la reproducción del video actual.
     def stop_video(self):
         """ Detener el video actual si está en reproducción. """
         if self.cap is not None:
@@ -563,6 +578,7 @@ class App(Tk):
             self.cap.release()
             self.label_video.config(image='')  # Limpiar el video anterior
 
+    # show_user: Muestra los detalles del perfil del usuario, como personalidad y objetivo financiero.
     def show_user(self):
         self.clear_main_frame()
 
@@ -614,7 +630,7 @@ class App(Tk):
         # Actualiza los botones de navegación
         self.update_nav_button("user")
 
-  
+    # show_tarjeta: Muestra la pantalla de solicitud de tarjeta o préstamo, con instrucciones detalladas.
     def show_tarjeta(self):
         self.clear_main_frame()
 
@@ -667,6 +683,7 @@ class App(Tk):
         # Botón para cerrar
         Button(self.main_frame, text="Cerrar", font=("Arial", 12), bg="#FF0000", fg="#FFFFFF", bd=0, command=self.show_user).pack(pady=10)
 
+    # show_home: Muestra la pantalla principal de los módulos educativos personalizados para el usuario.
     def show_home(self):
         self.clear_main_frame()
 
@@ -733,6 +750,7 @@ class App(Tk):
 
         self.update_nav_button("home")
 
+    # show_module_detail(titulo, descripcion): Muestra los detalles de un módulo educativo seleccionado, incluyendo el título y una descripción.
     def show_module_detail(self, titulo, descripcion):
         self.clear_main_frame()
 
@@ -743,6 +761,7 @@ class App(Tk):
 
         self.update_nav_button("home")
 
+    ## complete_module(module_number): Marca un módulo como completado, actualiza el progreso del usuario, y muestra los detalles del módulo completado.
     def complete_module(self, module_number):
         # Simula la finalización del módulo y actualiza el progreso
         self.progreso += 1
@@ -766,7 +785,7 @@ class App(Tk):
         ]
         self.show_module_detail(modulos[module_number-1], descripciones[module_number-1])
 
-
+    # guardarDatosUser: Guarda los datos del perfil del usuario, como el objetivo financiero y el saldo.
     def guardarDatosUser(self):
         # Obtén la información de los Entry fields
         objetivo = self.entry_fields["Objetivo:"].get()
@@ -781,6 +800,7 @@ class App(Tk):
         # Muestra un mensaje de confirmación
         messagebox.showinfo("Datos guardados", "¡Tu información ha sido guardada exitosamente!")
 
+    # create_bottom_nav: Crea una barra de navegación inferior con accesos directos a diferentes secciones de la app.
     def create_bottom_nav(self):
         nav_frame = Frame(self, bg=self.colors["primary"], height=60)
         nav_frame.pack(side=BOTTOM, fill=X)
@@ -798,6 +818,7 @@ class App(Tk):
         self.nav_buttons["user"] = Button(nav_frame, text="👤", font=("Arial", 14), bg=self.colors["primary"], fg=self.colors["white"], bd=0, command=self.show_user)
         self.nav_buttons["user"].pack(side=LEFT, expand=True, fill=BOTH)
 
+    # update_nav_button(selected): Actualiza el estado del botón de navegación seleccionado, destacándolo visualmente.
     def update_nav_button(self, selected):
         # Restaurar color de fondo de todos los botones
         for key, button in self.nav_buttons.items():
@@ -807,6 +828,7 @@ class App(Tk):
         if selected in self.nav_buttons:
             self.nav_buttons[selected].config(bg=self.colors["selected"])
 
+    # subir_foto: Permite al usuario cargar una imagen desde su dispositivo para usarla en el proceso de identificación.
     def subir_foto(self):
         # Seleccionar imagen
         file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg *.jpeg *.png")])
@@ -816,6 +838,7 @@ class App(Tk):
         else:
             messagebox.showerror("Error", "No se seleccionó ninguna imagen.")
 
+    # base_de_datos(user, pswrd, identificador): Verifica las credenciales del usuario en la "base de datos" simulada.
     def base_de_datos(self, user, pswrd, identificador):
 
         if identificador == 1:  # para el login
@@ -825,6 +848,7 @@ class App(Tk):
             else:
                 messagebox.showinfo("Error", "Usuario y/o contraseña incorrecto")
 
+    # login: Muestra la pantalla de inicio de sesión con campos de usuario y contraseña.
     def login(self):
         # Limpiar la ventana
         for widget in self.winfo_children():
@@ -853,6 +877,7 @@ class App(Tk):
         Label(self, text="¿No tienes cuenta?", font=("Arial", 10), bg="#FF0000").pack(pady=5)
         Button(self, text="Crear cuenta", font=("Arial", 10), bg="#FFFFFF", fg="#FF0000", width=15, command=self.crear_cuenta_paso1).pack(pady=5)
     
+    # verificacion_facial: Inicia la verificación facial usando la cámara del dispositivo.
     def verificacion_facial(self):
         # Crear etiqueta de estado para la verificación facial
         self.label_status = Label(self, text="", font=("Arial", 24, "bold"), width=15, height=2)
@@ -875,7 +900,8 @@ class App(Tk):
 
         # Opción de crear una cuenta (aquí agregamos el botón de Crear cuenta)
         Label(self, text="¿No tienes cuenta?", font=("Arial", 10), bg="#FF0000").pack(pady=5)
-        
+
+    # update_frame: Actualiza los frames de la cámara para la verificación facial.
     def update_frame(self):
         # Leer un frame del video
         ret, frame = self.cap.read()
@@ -918,6 +944,7 @@ class App(Tk):
         # Volver a llamar a update_frame después de 20ms para crear un bucle de actualización de video
         self.after(20, self.update_frame)
 
+    # stop_video: Detiene el uso de la cámara y libera el recurso al salir de la pantalla de login.
     def stop_video(self):
         """ Detener el video y liberar la cámara al salir de la pantalla de login. """
         if self.cap is not None:
