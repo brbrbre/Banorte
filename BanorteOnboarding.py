@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import messagebox, filedialog, ttk
 from PIL import Image, ImageTk
 import webbrowser  # Importar el módulo webbrowser
+
+#pip install pywebview
 import webview
 
 import requests
