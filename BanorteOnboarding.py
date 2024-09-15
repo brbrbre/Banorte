@@ -717,7 +717,7 @@ class App(Tk):
                 {"titulo": "Módulo 1. Bienestar Financiero", "imagen": self.images["modulo_1"], "descripcion": "Aprende a manejar tus finanzas personales de manera efectiva, como ahorrar para la jubilación o comprar una casa.", "comando": lambda: self.complete_module(1)},
                 {"titulo": "Módulo 2. Conociendo mi tarjeta de \ncrédito", "imagen": self.images["modulo_2"], "descripcion": "Descubre todo lo que necesitas saber sobre el uso de tarjetas de crédito.", "comando": lambda: self.complete_module(2)},
                 {"titulo": "Módulo 3. Planeando mi futuro", "imagen": self.images["modulo_3"], "descripcion": "Estrategias para planificar y asegurar un futuro próspero.", "comando": lambda: self.complete_module(3)},
-                {"titulo": "Módulo 4. Estrategias de Ahorro", "imagen": self.images["modulo_4"], "descripcion": "Mejores prácticas para ahorrar dinero de manera inteligente.", "comando": lambda: self.complete_module(4)},
+                {"titulo": "Módulo 4. Estrategias de Ahorro", "imagen": self.images["modulo_4"], "descripcion": "Mejores prácticas para ahorrar dinero de manera inteligente.", "comando": lambda: self.complete_module(4)}
             ]
 
             # Agregar cada módulo al scrollable_frame
@@ -759,7 +759,7 @@ class App(Tk):
         modulos = ["Módulo 1. Bienestar Financiero", "Módulo 2. Conociendo mi tarjeta de crédito", "Módulo 3. Planeando mi futuro", "Módulo 4. Estrategias de Ahorro"]
         descripciones = [
              "Aprende a manejar tus finanzas personales de manera efectiva. Este módulo te enseña cómo establecer un presupuesto, entender los gastos esenciales versus los no esenciales, y estrategias para ahorrar para metas a largo plazo como la jubilación o la compra de una casa. Incluye consejos sobre cómo evitar deudas innecesarias y cómo invertir de manera inteligente para el futuro.",
-            "Descubre todo lo que necesitas saber sobre el uso de tarjetas de crédito de manera responsable. Aprenderás sobre los tipos de tarjetas disponibles, cómo leer tu estado de cuenta, los intereses y comisiones asociados, y las estrategias para usar el crédito a tu favor sin caer en ciclos de deuda. También se incluyen consejos sobre la seguridad de la tarjeta y cómo protegerse contra el fraude."
+            "Descubre todo lo que necesitas saber sobre el uso de tarjetas de crédito de manera responsable. Aprenderás sobre los tipos de tarjetas disponibles, cómo leer tu estado de cuenta, los intereses y comisiones asociados, y las estrategias para usar el crédito a tu favor sin caer en ciclos de deuda. También se incluyen consejos sobre la seguridad de la tarjeta y cómo protegerse contra el fraude.",
             "Estrategias para planificar y asegurar un futuro próspero. En este módulo, explorarás cómo establecer objetivos financieros realistas y alcanzables a corto, mediano y largo plazo. Aprenderás sobre la importancia de la inversión, las opciones de ahorro para la educación y la jubilación, y cómo asegurar tu patrimonio y tu salud financiera frente a imprevistos.",
             "Mejores prácticas para ahorrar dinero de manera inteligente. Este módulo ofrece técnicas avanzadas de ahorro, cómo maximizar tus ahorros con intereses compuestos, y herramientas para evaluar y mejorar la eficiencia de tus ahorros. Discutirás sobre el establecimiento de fondos de emergencia, la planificación de grandes compras y cómo utilizar cuentas de ahorro con ventajas fiscales."
 
